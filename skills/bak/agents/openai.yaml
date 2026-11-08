@@ -1,0 +1,4 @@
+interface:
+  display_name: "BAK (bad-agent-kid)"
+  short_description: "Route every task to the right workflow. Don't be the bad agent kid."
+  default_prompt: "Use $bak to route and execute this task with the right workspace skills and checks."

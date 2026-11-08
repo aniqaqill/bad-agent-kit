@@ -1,0 +1,38 @@
+{
+  "name": "bad-agent-kid",
+  "version": "0.1.0",
+  "description": "BAK — bad-agent-kid: a curated skills marketplace + workflow orchestrator. The router that keeps you from being one. Compose, never own.",
+  "license": "MIT",
+  "keywords": [
+    "pi-package",
+    "pi",
+    "agent-skills",
+    "skills",
+    "claude-code",
+    "codex",
+    "workflow-orchestrator",
+    "mattpocock"
+  ],
+  "scripts": {
+    "prepublishOnly": "bash scripts/scrub.sh && node scripts/validate-catalog.js",
+    "test": "node scripts/validate-catalog.js"
+  },
+  "files": [
+    "skills",
+    "docs",
+    "catalog",
+    "README.md",
+    "GLOSSARY.md",
+    "LICENSE"
+  ],
+  "pi": {
+    "skills": ["./skills/bak"],
+    "image": "docs/banner.png",
+    "changelogPath": "CHANGELOG.md"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-ai": "*",
+    "@earendil-works/pi-agent-core": "*",
+    "@earendil-works/pi-coding-agent": "*"
+  }
+}

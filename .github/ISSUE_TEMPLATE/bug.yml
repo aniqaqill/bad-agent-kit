@@ -1,0 +1,23 @@
+name: Bug report
+description: Something in the catalog or router is wrong
+title: "[bug]: "
+labels: [bug]
+body:
+  - type: textarea
+    attributes:
+      label: What's wrong
+      description: Which skill, install command, or playbook — and what actually happened.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected
+      description: What should have happened.
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Agent & channel
+      description: e.g. "cursor via skills.sh", "pi via npm"
+    validations:
+      required: true

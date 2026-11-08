@@ -1,0 +1,17 @@
+name: Skill or playbook idea
+description: Propose a new catalog entry or workflow chain
+title: "[idea]: "
+labels: [idea]
+body:
+  - type: textarea
+    attributes:
+      label: The idea
+      description: What skill, source, or playbook chain — and what real work it unlocks.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Evidence it works
+      description: Where you've used it, and what it replaced.
+    validations:
+      required: false

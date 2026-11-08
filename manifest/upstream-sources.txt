@@ -1,0 +1,38 @@
+# Pinned upstream sources — never vendored.
+
+# mattpocock engineering + productivity stack
+github:mattpocock/skills                     skills/engineering/tdd
+github:mattpocock/skills                     skills/engineering/triage
+github:mattpocock/skills                     skills/engineering/to-spec
+github:mattpocock/skills                     skills/engineering/to-tickets
+github:mattpocock/skills                     skills/engineering/code-review
+github:mattpocock/skills                     skills/engineering/wayfinder
+github:mattpocock/skills                     skills/engineering/request-refactor-plan
+github:mattpocock/skills                     skills/engineering/setup-matt-pocock-skills
+github:mattpocock/skills                     skills/engineering/research
+github:mattpocock/skills                     skills/engineering/codebase-design
+github:mattpocock/skills                     skills/engineering/diagnosing-bugs
+github:mattpocock/skills                     skills/engineering/domain-modeling
+github:mattpocock/skills                     skills/engineering/grilling
+github:mattpocock/skills                     skills/engineering/improve-codebase-architecture
+github:mattpocock/skills                     skills/engineering/migrate-to-shoehorn
+github:mattpocock/skills                     skills/engineering/prototype
+github:mattpocock/skills                     skills/engineering/resolving-merge-conflicts
+github:mattpocock/skills                     skills/engineering/scaffold-exercises
+github:mattpocock/skills                     skills/engineering/grill-with-docs
+github:mattpocock/skills                     skills/engineering/implement
+github:mattpocock/skills                     skills/productivity/handoff
+github:mattpocock/skills                     skills/productivity/grill-me
+github:mattpocock/skills                     skills/productivity/qa
+github:mattpocock/skills                     skills/productivity/teach
+
+# discovery
+github:vercel-labs/skills                    skills/find-skills
+
+# browser automation
+github:ChromeDevTools/chrome-devtools-mcp    skills/chrome-devtools
+
+# local, owned by BAK (portable core)
+local:skills/bak                            skills/bak/SKILL.md
+
+# Format: <source> <path>   — install channel decided per agent (see README).
