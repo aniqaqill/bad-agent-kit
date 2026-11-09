@@ -8,7 +8,7 @@ set -euo pipefail
 AGENT="${1:-cursor}"
 
 echo ">> Installing BAK router (this repo) for $AGENT ..."
-npx skills@latest add aniqaqill/bad-agent-kid -g --skill bak --agent "$AGENT" -y
+npx skills@latest add aniqaqill/bad-agent-kit -g --skill bak --agent "$AGENT" -y
 
 echo ">> Installing mattpocock/skills for $AGENT ..."
 npx skills@latest add mattpocock/skills -g --skill '*' --agent "$AGENT" -y --full-depth

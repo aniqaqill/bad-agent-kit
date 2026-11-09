@@ -1,15 +1,15 @@
-# BAK — bad-agent-kid
+# BAK — bad-agent-kit
 
 > **BAK** (Batman Agents Kit) — a curated skills marketplace + workflow
 > orchestrator. Compose, never own.
-> *bad-agent-kid* is the persona: the punchline encodes the rules —
-> don't be the bad agent kid. Never mutate on inspect. Never publish without
+> *bad-agent-kit* is the persona: the punchline encodes the rules —
+> don't ship the bad agent kit. Never mutate on inspect. Never publish without
 > authority. Route every task through the smallest complete set of skills.
 
 [![skills.sh](https://img.shields.io/badge/skills.sh-install-6f42c1)](https://skills.sh)
-[![npm](https://img.shields.io/npm/v/bad-agent-kid)](https://www.npmjs.com/package/bad-agent-kid)
+[![npm](https://img.shields.io/npm/v/bad-agent-kit)](https://www.npmjs.com/package/bad-agent-kit)
 [![pi.dev](https://img.shields.io/badge/pi.dev-gallery-6f6bff)](https://pi.dev/packages)
-[![CI](https://github.com/aniqaqill/bad-agent-kid/actions/workflows/ci.yml/badge.svg)](https://github.com/aniqaqill/bad-agent-kid/actions)
+[![CI](https://github.com/aniqaqill/bad-agent-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/aniqaqill/bad-agent-kit/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ## What is this?
@@ -31,10 +31,10 @@ them, composes them, and documents the chains.
 
 ```bash
 # pi
-pi install npm:bad-agent-kid
+pi install npm:bad-agent-kit
 
 # Claude Code / Codex / Cursor via skills.sh
-npx skills@latest add aniqaqill/bad-agent-kid -g --skill bak --agent cursor -y
+npx skills@latest add aniqaqill/bad-agent-kit -g --skill bak --agent cursor -y
 ```
 
 ⚠️ Pick ONE channel per agent. Installing through two channels on the same
@@ -42,7 +42,7 @@ agent duplicates every skill and drifts hashes silently.
 
 ## The catalog
 
-| `bak` | this repo | `pi install npm:bad-agent-kid` | router — start of every task |
+| `bak` | this repo | `pi install npm:bad-agent-kit` | router — start of every task |
 | `chief` (legacy) | this repo | — | superseded by `bak`; kept for backlink resolution |
 | `chrome-devtools` | [ChromeDevTools/chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp) | `npx skills@latest add ChromeDevTools/chrome-devtools-mcp -g --skill chrome-devtools --agent cursor -y` | browser automation |
 | `code-review` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill code-review --agent cursor -y` | review before merge |

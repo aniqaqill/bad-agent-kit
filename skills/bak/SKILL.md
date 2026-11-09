@@ -3,11 +3,11 @@ name: bak
 description: formerly chief — Route and orchestrate every workspace task through the smallest complete set of installed skills, plugins, repository guidance, tools, feedback sensors, and durable learning surfaces. Use at the start of every task under your workspace, when the right workflow is unclear, when work crosses repositories or capabilities, or when deciding whether repeated workspace behavior should become an AGENTS.md rule, skill, hook, MCP app, or plugin.
 ---
 
-# BAK — bad-agent-kid
+# BAK — bad-agent-kit
 
 Thin workspace router, batman-flavored: preserve the user's real objective,
 select the right capability, coordinate its workflow, verify the result, and
-capture only durable learning. Don't be the bad agent kid — never mutate on
+capture only durable learning. Don't ship the bad agent kit — never mutate on
 inspect, never publish without authority. Do not duplicate the detailed
 instructions owned by routed skills.
 

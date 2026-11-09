@@ -1,7 +1,7 @@
 # BAK Glossary
 
 - **BAK** — Batman Agents Kit. The serious public brand: router + marketplace + orchestrator.
-- **bad-agent-kid** — the persona. The joke IS the rule: don't be the bad agent kid.
+- **bad-agent-kit** — the persona. The joke IS the rule: don't ship the bad agent kit.
 - **bak** — the router skill itself (`skills/bak/SKILL.md`). Formerly `chief`.
 - **Catalog of record** — the single source of truth for what's listed; README table today, `catalog/catalog.json` + generator past ~40 entries. Never hand-edit both.
 - **Compose, never own** — BAK pins and documents upstream skills; it does not fork or vendor them.

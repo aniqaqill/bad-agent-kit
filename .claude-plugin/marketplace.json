@@ -1,9 +1,9 @@
 {
-  "name": "bad-agent-kid marketplace",
+  "name": "bad-agent-kit marketplace",
   "owner": "aniqaqill",
   "plugins": [
     {
-      "name": "bad-agent-kid",
+      "name": "bad-agent-kit",
       "source": "./",
       "description": "BAK router skill + curated skills catalog + workflow playbooks."
     }

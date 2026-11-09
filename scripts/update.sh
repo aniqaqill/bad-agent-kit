@@ -9,6 +9,6 @@ echo ">> Updating upstream skills for $AGENT ..."
 npx skills@latest update -g -y
 
 echo ">> Refreshing BAK router from this repo ..."
-npx skills@latest add aniqaqill/bad-agent-kid -g --skill bak --agent "$AGENT" -y
+npx skills@latest add aniqaqill/bad-agent-kit -g --skill bak --agent "$AGENT" -y
 
 echo "Done."

@@ -1,4 +1,4 @@
-# Design Evidence — BAK (bad-agent-kid)
+# Design Evidence — BAK (bad-agent-kit)
 
 Provenance for the decisions in this repo. Portable and `$HOME`-scrubbed;
 personal overlays stay local.
@@ -21,7 +21,7 @@ BAK is the same router, split in two:
 1. **Compose, never own.** Upstream skills (mattpocock, vercel-labs,
    chrome-devtools) are pinned, never vendored. BAK owns only the router and
    the playbooks.
-2. **Two-level brand.** BAK = serious kit; bad-agent-kid = persona whose
+2. **Two-level brand.** BAK = serious kit; bad-agent-kit = persona whose
    punchline encodes the rules ("never mutate on inspect, never publish
    without authority").
 3. **Catalog of record.** README table until ~40 entries; then
