@@ -3,7 +3,7 @@
 All notable changes to bad-agent-kit are documented here, in Pi changelog
 format (version headings match `package.json`).
 
-## [0.2.1] - 2026-11-10
+## [0.3.0] - 2026-11-10
 
 ### Changed
 

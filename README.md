@@ -112,12 +112,11 @@ Two ways to connect pstack:
 
 Full spec: `adapters/pstack.md`.
 
-## Privacy & license
+## License
 
-A CI gate fails the build on personal literals. MIT — skills listed here
-remain property of their authors.
+MIT — skills listed here remain property of their authors.
 
 ## Acknowledgments
 
-mattpocock/skills · cursor/plugins — pstack ("a finding survives only when a
-run proves it").
+[mattpocock/skills](https://github.com/mattpocock/skills) ·
+[cursor/plugins — pstack](https://github.com/cursor/plugins/tree/main/pstack)
