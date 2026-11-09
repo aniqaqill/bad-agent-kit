@@ -36,3 +36,6 @@ github:ChromeDevTools/chrome-devtools-mcp    skills/chrome-devtools
 local:skills/bak                            skills/bak/SKILL.md
 
 # Format: <source> <path>   — install channel decided per agent (see README).
+local:skills/go-plan                         skills/go-plan/SKILL.md
+local:skills/go-tdd                          skills/go-tdd/SKILL.md
+local:skills/go-review                       skills/go-review/SKILL.md

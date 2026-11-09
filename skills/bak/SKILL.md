@@ -45,6 +45,9 @@ permits.
   `$setup-matt-pocock-skills` and honor its confirmation steps.
 - Prefer repo-specific terms, commands, and acceptance checks over workspace
   defaults.
+- In a Go module (go.mod present): note the module layout and go directive
+  version floor before entering any phase; Go triggers route to the `go-*`
+  family (see routing matrix).
 
 ## Use guides and sensors
 

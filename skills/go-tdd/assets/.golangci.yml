@@ -1,0 +1,39 @@
+version: "2"
+
+linters:
+  default: none
+  enable:
+    - errcheck
+    - errorlint
+    - wrapcheck
+    - govet
+    - staticcheck
+    - unused
+    - unparam
+    - gosec
+    - revive
+    - prealloc
+    - fieldalignment
+    - containedctx
+    - bodyclose
+    - noctx
+    - sqlclosecheck
+    - gocyclo
+    - funlen
+
+  settings:
+    revive:
+      rules:
+        - name: exported
+        - name: iface
+    wrapcheck:
+      ignoreSigs:
+        - .Errorf(
+    gocyclo:
+      min-complexity: 15
+
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - vendor$

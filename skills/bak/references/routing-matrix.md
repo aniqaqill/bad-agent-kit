@@ -91,6 +91,19 @@ top-level workflow plus only the supporting disciplines it needs.
    external sources when the workspace plan permits it, while `$notion-cli`
    follows the official CLI and public API surface.
 
+## Go routes
+
+| Intent | Primary route | Supporting route or constraint |
+|---|---|---|
+| Plan a Go feature or change | `$go-plan` | Grill before implementation; every shared datum named and owned |
+| Implement an accepted Go spec | `$go-tdd` | Use `$go-review` before close; sensor gates at every phase exit |
+| Review Go changes | `$go-review` | Two-axis: standards (GO_RULES.md) and spec |
+
+Go triggers (`race`, `goroutine`, `channel`, `mutex`, `deadlock`, `leak`, or a
+`go.mod` in the active repo) route to the `go-*` family; bak remains the sole
+phase orchestrator — the go skills delegate to grilling/to-spec/tdd/code-review,
+they do not replace them.
+
 ## Fallback rules
 
 1. Use an explicitly named skill even if the matrix suggests another route.

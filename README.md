@@ -43,6 +43,9 @@ agent duplicates every skill and drifts hashes silently.
 ## The catalog
 
 | `bak` | this repo | `pi install npm:bad-agent-kit` | router — start of every task |
+| `go-plan` | this repo | `pi install npm:bad-agent-kit` | Go plan phase — grill then spec |
+| `go-tdd` | this repo | `pi install npm:bad-agent-kit` | Go implement — sensor gates + e2e tests |
+| `go-review` | this repo | `pi install npm:bad-agent-kit` | Go review — standards + spec lenses |
 | `chief` (legacy) | this repo | — | superseded by `bak`; kept for backlink resolution |
 | `chrome-devtools` | [ChromeDevTools/chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp) | `npx skills@latest add ChromeDevTools/chrome-devtools-mcp -g --skill chrome-devtools --agent cursor -y` | browser automation |
 | `code-review` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill code-review --agent cursor -y` | review before merge |
@@ -84,6 +87,10 @@ flowchart LR
   bak([bak router]) -. routes .-> T
   bak -. routes .-> D
   bak -. routes .-> W
+  subgraph GO[Go lane]
+    GP[go-plan] --> GT[go-tdd] --> GR[go-review]
+  end
+  bak -. "go.mod / race|goroutine|channel|mutex" .-> GP
 ```
 
 ## Repo layout

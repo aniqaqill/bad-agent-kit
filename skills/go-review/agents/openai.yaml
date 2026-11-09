@@ -1,0 +1,5 @@
+interface:
+  display_name: "go-review"
+  short_description: "Review Go changes on standards and spec axes with Go lenses."
+  default_prompt: "Use $go-review to review these Go changes before merge."
+  allow_implicit_invocation: false

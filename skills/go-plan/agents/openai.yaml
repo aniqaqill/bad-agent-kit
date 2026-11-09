@@ -1,0 +1,5 @@
+interface:
+  display_name: "go-plan"
+  short_description: "Plan a Go feature: grill the design with Go frontier questions, then synthesize an accepted spec."
+  default_prompt: "Use $go-plan to grill and spec this Go work."
+  allow_implicit_invocation: false

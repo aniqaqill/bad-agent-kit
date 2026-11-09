@@ -1,0 +1,5 @@
+interface:
+  display_name: "go-tdd"
+  short_description: "Implement an accepted Go spec test-first with sensor gates and e2e outcome tests."
+  default_prompt: "Use $go-tdd to implement this accepted Go spec."
+  allow_implicit_invocation: false
