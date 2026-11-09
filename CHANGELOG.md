@@ -3,6 +3,13 @@
 All notable changes to bad-agent-kit are documented here, in Pi changelog
 format (version headings match `package.json`).
 
+## [0.1.1] - 2026-11-09
+
+### Changed
+
+- Single public identity: BAK now expands to **Bad-Agent Kit** (native
+  acronym); Batman remains theming only (🦇, tagline), never the name.
+
 ## [0.1.0] - 2026-11-09
 
 ### Added

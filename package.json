@@ -1,6 +1,6 @@
 {
   "name": "bad-agent-kit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "BAK — bad-agent-kit: a curated skills marketplace + workflow orchestrator. The router that keeps you from being one. Compose, never own.",
   "license": "MIT",
   "keywords": [

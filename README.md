@@ -1,6 +1,6 @@
 # 🦇 BAK — bad-agent-kit
 
-> **BAK** (Batman Agents Kit) — a curated skills marketplace + workflow
+> **BAK** (Bad-Agent Kit) — a curated skills marketplace + workflow
 > orchestrator for coding agents. **Compose, never own.**
 >
 > *bad-agent-kit* is the persona: the punchline encodes the rules — don't ship
