@@ -20,14 +20,12 @@
   "files": [
     "skills",
     "docs",
-    "catalog",
     "README.md",
     "GLOSSARY.md",
     "LICENSE"
   ],
   "pi": {
-    "skills": ["./skills/bak"],
-    "image": "docs/banner.png",
+    "skills": ["./skills/bak", "./skills/go-plan", "./skills/go-tdd", "./skills/go-review"],
     "changelogPath": "CHANGELOG.md"
   },
   "peerDependencies": {

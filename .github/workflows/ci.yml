@@ -21,3 +21,16 @@ jobs:
           node-version: 22
       - name: Catalog lockstep validation
         run: node scripts/validate-catalog.js
+
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Link check (README, docs, GLOSSARY)
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --no-progress
+            --exclude 'npmjs\.com|shields\.io|skills\.sh'
+            README.md docs/ GLOSSARY.md CHANGELOG.md CONTRIBUTING.md
+          fail: true

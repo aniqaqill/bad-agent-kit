@@ -1,5 +1,6 @@
-# Pinned upstream sources — never vendored.
+# Format: <source> <path>   — install channel decided per agent (see README).
 
+# Pinned upstream sources — never vendored.
 # mattpocock engineering + productivity stack
 github:mattpocock/skills                     skills/engineering/tdd
 github:mattpocock/skills                     skills/engineering/triage
@@ -25,17 +26,12 @@ github:mattpocock/skills                     skills/productivity/handoff
 github:mattpocock/skills                     skills/productivity/grill-me
 github:mattpocock/skills                     skills/productivity/qa
 github:mattpocock/skills                     skills/productivity/teach
-
 # discovery
 github:vercel-labs/skills                    skills/find-skills
-
 # browser automation
 github:ChromeDevTools/chrome-devtools-mcp    skills/chrome-devtools
-
 # local, owned by BAK (portable core)
 local:skills/bak                            skills/bak/SKILL.md
-
-# Format: <source> <path>   — install channel decided per agent (see README).
 local:skills/go-plan                         skills/go-plan/SKILL.md
 local:skills/go-tdd                          skills/go-tdd/SKILL.md
 local:skills/go-review                       skills/go-review/SKILL.md
