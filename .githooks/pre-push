@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Local CI parity — the same gates as .github/workflows/ci.yml, run before
+# every push so a locked/missing Actions account never blocks verification.
+set -euo pipefail
+
+cd "$(git rev-parse --show-toplevel)"
+
+echo ">> [1/3] privacy-scrub gate"
+bash scripts/scrub.sh
+
+echo ">> [2/3] catalog lockstep + Go fence"
+node scripts/validate-catalog.js
+
+echo ">> [3/3] upstream path existence"
+bash scripts/check-upstream-paths.sh
+
+echo "All local gates green — safe to push."
