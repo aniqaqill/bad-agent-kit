@@ -13,8 +13,6 @@ while IFS='|' read -r provider src path rest; do
   case "$provider" in
     mattpocock) repo="mattpocock/skills"; ref="main" ;;
     pstack) repo="cursor/plugins"; ref="main" ;;
-    vercel-labs) repo="vercel-labs/skills"; ref="main" ;;
-    chrome-devtools) repo="ChromeDevTools/chrome-devtools-mcp"; ref="main" ;;
     *) continue ;;
   esac
   code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 15 "https://raw.githubusercontent.com/$repo/$ref/$path/SKILL.md")

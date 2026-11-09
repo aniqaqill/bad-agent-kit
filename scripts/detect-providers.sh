@@ -20,7 +20,9 @@ mkdir -p "$BAK_DIR"
 detect_mattpocock() {
   # canonical: ~/.agents/skills (universal, editable)
   for s in tdd triage to-spec to-tickets handoff setup-matt-pocock-skills code-review; do
-    [ -f "$HOME/.agents/skills/$s/SKILL.md" ] || [ -f "$HOME/.claude/skills/$s/SKILL.md" ] && return 0
+    if [ -f "$HOME/.agents/skills/$s/SKILL.md" ] || [ -f "$HOME/.claude/skills/$s/SKILL.md" ]; then
+      return 0
+    fi
   done
   # plugin-channel shadow copies (recorded, never canonical)
   ls "$HOME"/.claude/plugins/cache/*mattpocock*/ 2>/dev/null | grep -q . && { echo "shadow"; return 0; }
@@ -51,17 +53,6 @@ detect_pstack() {
   return 1
 }
 
-detect_vercel() {
-  [ -f "$HOME/.agents/skills/find-skills/SKILL.md" ] || [ -f "$HOME/.claude/skills/find-skills/SKILL.md" ]
-}
-
-detect_chrome_devtools() {
-  # two-step: skill present AND mcp server authorized is checked by the router;
-  # here we only prove the skill copy.
-  [ -f "$HOME/.agents/skills/chrome-devtools/SKILL.md" ] && return 0
-  command -v chrome-devtools-mcp >/dev/null 2>&1
-}
-
 # --- main ---
 
 results=""
@@ -87,8 +78,6 @@ while IFS= read -r line; do
   case "$id" in
     mattpocock) check_provider mattpocock detect_mattpocock ;;
     pstack) check_provider pstack detect_pstack ;;
-    vercel-labs) check_provider vercel-labs detect_vercel ;;
-    chrome-devtools) check_provider chrome-devtools detect_chrome_devtools ;;
   esac
 done < <(grep -vE '^\s*(#|$)' "$PROVIDERS_TOML")
 

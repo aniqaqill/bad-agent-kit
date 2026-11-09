@@ -1,16 +1,16 @@
-// Catalog validator — README table ↔ manifest/upstream-sources.txt lockstep,
-// provider parse + optionality + Go-fence assertion.
+// Catalog validator — docs/catalog.md table ↔ manifest/upstream-sources.txt
+// lockstep, provider parse + optionality + Go-fence assertion.
 // Run: node scripts/validate-catalog.js
 const fs = require('fs');
 const path = require('path');
 
 const root = path.join(__dirname, '..');
-const readme = fs.readFileSync(path.join(root, 'README.md'), 'utf8');
+const catalog = fs.readFileSync(path.join(root, 'docs', 'catalog.md'), 'utf8');
 const manifest = fs.readFileSync(path.join(root, 'manifest', 'upstream-sources.txt'), 'utf8');
 const providersToml = fs.readFileSync(path.join(root, 'manifest', 'providers.toml'), 'utf8');
 
-// Extract skill rows from the README table: | `name` | source | ... |
-const rows = [...readme.matchAll(/^\|\s*`([a-z0-9-]+)`\s*\|/gm)].map((m) => m[1]);
+// Extract skill rows from the catalog table: | `name` | source | ... |
+const rows = [...catalog.matchAll(/^\|\s*`([a-z0-9-]+)`\s*\|/gm)].map((m) => m[1]);
 
 // Parse provider-grouped manifest rows: provider | source | path | channel | roles | opt | checked
 const manifestLines = manifest
@@ -28,12 +28,12 @@ const upstreamSkills = manifestLines
     return { provider, skill: skillPath.split('/').pop(), optional: opt === 'optional' };
   });
 
-// Lockstep: every upstream pin must appear in the README catalog.
+// Lockstep: every upstream pin must appear in the catalog table.
 const missing = upstreamSkills.filter((e) => !rows.includes(e.skill));
-// Stale: README rows that are neither upstream pins nor BAK-owned skills.
+// Stale: catalog rows that are neither upstream pins nor BAK-owned skills.
 const stale = rows.filter((r) => !upstreamSkills.some((e) => e.skill === r) && !localSkills.includes(r));
 
-// Optional providers absent from the README are info, not drift — but their
+// Optional providers absent from the catalog are info, not drift — but their
 // pins must still be declared in providers.toml.
 const optionalIds = upstreamSkills.filter((e) => e.optional).map((e) => e.provider);
 const tomlProviders = providersToml
@@ -50,11 +50,11 @@ const missingLocal = goSkills.filter((s) => !localSkills.includes(s));
 
 let failed = false;
 if (missing.length) {
-  console.error('Catalog drift: upstream pins missing from README:', missing.map((e) => e.skill).join(', '));
+  console.error('Catalog drift: upstream pins missing from docs/catalog.md:', missing.map((e) => e.skill).join(', '));
   failed = true;
 }
 if (stale.length) {
-  console.error('Catalog drift: README rows not in manifest or owned:', stale.join(', '));
+  console.error('Catalog drift: docs/catalog.md rows not in manifest or owned:', stale.join(', '));
   failed = true;
 }
 if (unpinnedOptional.length) {
@@ -72,6 +72,6 @@ if (missingLocal.length) {
 
 if (failed) process.exit(1);
 console.log(
-  `Catalog lockstep OK: ${rows.length} README rows, ${upstreamSkills.length} provider pins, ` +
+  `Catalog lockstep OK: ${rows.length} catalog rows, ${upstreamSkills.length} provider pins, ` +
   `${localSkills.length} BAK-owned skills. Go fence intact.`
 );

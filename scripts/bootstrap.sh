@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # BAK bootstrap — install BAK-owned skills, then optionally external providers.
-# Usage: bash scripts/bootstrap.sh [agent] [--providers mattpocock,pstack,vercel-labs,chrome-devtools]
+# Usage: bash scripts/bootstrap.sh [agent] [--providers mattpocock,pstack]
 # Default: agent=cursor, providers=none (BAK works with zero external suites).
 # NEVER use `--all` (installs symlinks into dozens of agent dirs).
 
@@ -40,14 +40,6 @@ install_provider() {
       echo "   Install via: /add-plugin pstack   (Cursor)"
       echo "   or: /plugin marketplace add cursor/plugins && /plugin install pstack@cursor-plugins"
       echo "   Fallback: clone cursor/plugins to a pinned location and record the root."
-      ;;
-    vercel-labs)
-      echo ">> Installing provider vercel-labs for $AGENT ..."
-      npx skills@latest add vercel-labs/skills -g --skill find-skills --agent "$AGENT" -y
-      ;;
-    chrome-devtools)
-      echo ">> Installing provider chrome-devtools for $AGENT ..."
-      npx skills@latest add chromedevtools/chrome-devtools-mcp -g --agent "$AGENT" -y
       ;;
     *)
       echo "Skipped unknown provider: $1"

@@ -3,6 +3,29 @@
 All notable changes to bad-agent-kit are documented here, in Pi changelog
 format (version headings match `package.json`).
 
+## [0.2.1] - 2026-11-10
+
+### Changed
+
+- README slimmed to a consumer-first page; the full catalog table moved to
+  `docs/catalog.md` (still shipped in the npm package); CI lockstep re-targeted
+  to `docs/catalog.md` with no validator logic change
+- Providers narrowed to the two workflow suites (mattpocock, pstack);
+  vercel-labs and chrome-devtools removed from the provider model (standalone
+  utilities, not SDLC suites)
+- Contract made explicit and skills-agnostic: a suite plugs in via pin
+  (`providers.toml`) + adapter (`adapters/*.md`) + detection
+  (`detect-providers.sh`) — no router changes
+- Removed pstack's phantom `mr` role and `pstack:babysit` route (builtin
+  `babysit` is the only mr route); removed phantom `$ask-matt`
+- Fixed `detect_mattpocock` operator-precedence bug (the canonical
+  `~/.agents/skills` path was never honored)
+
+### Removed
+
+- vercel-labs and chrome-devtools provider pins, detection, install, and
+  routing rows
+
 ## [0.2.0] - 2026-11-09
 
 ### Added

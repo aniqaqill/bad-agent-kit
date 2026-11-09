@@ -4,13 +4,13 @@
 
 1. **Compose, never own.** Skills listed here stay owned by their authors.
    BAK pins sources and documents chains — it never vendors upstream code.
-2. **Providers are optional pinned suites.** A provider (mattpocock, pstack,
-   vercel-labs, chrome-devtools) runs only with two-step proof: pinned in
-   `manifest/providers.toml` AND detected on disk. Absence never blocks — the
-   degradation lane falls back to builtin phases with a skip note.
+2. **Providers are optional pinned suites.** A provider (mattpocock, pstack)
+   runs only with two-step proof: pinned in `manifest/providers.toml` AND
+   detected on disk. Absence never blocks — the degradation lane falls back
+   to builtin phases with a skip note.
 3. **Go fence is absolute.** `go.mod` ⇒ go-plan/go-tdd/go-review only; the
    go-* skills must stay `local:` in the manifest (CI asserts this).
-4. **Catalog lockstep.** README table ↔ `manifest/upstream-sources.txt` ↔
+4. **Catalog lockstep.** `docs/catalog.md` ↔ `manifest/upstream-sources.txt` ↔
    `providers.toml`; CI enforces all three.
 5. **Privacy-scrub gate.** Never commit personal literals (home paths, vault
    names, private endpoints). Use `$HOME` or generic paths.
@@ -24,7 +24,7 @@
 2. Add/refresh the one-line pin in `manifest/providers.toml`.
 3. If the skill satisfies a phase contract, add a row to the provider's
    `adapters/<provider>.md` mapping.
-4. Add the README catalog row.
+4. Add the catalog row to `docs/catalog.md`.
 5. Run `bash scripts/scrub.sh && node scripts/validate-catalog.js` before
    committing.
 
@@ -33,7 +33,8 @@
 1. Create `skills/<name>/SKILL.md` (+ `agents/openai.yaml`).
 2. Add `local:<name> | skills/<name>/SKILL.md | builtin | <roles> | required | <checked>`
    to the manifest.
-3. Add `./skills/<name>` to `package.json` `pi.skills` and a README row.
+3. Add `./skills/<name>` to `package.json` `pi.skills` and a `docs/catalog.md`
+   row.
 4. Ship it to the local machine with `bak-sync`.
 
 ## Adding a playbook

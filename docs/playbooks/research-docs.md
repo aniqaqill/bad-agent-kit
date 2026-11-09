@@ -2,9 +2,8 @@
 
 Provider route first, builtin fallback after the arrow.
 
-1. **find-docs** (`vercel-labs:find-skills` → builtin web tools + catalog
-   scan): current primary docs for any library/SDK/CLI question; never trust
-   training data for API details.
+1. **find-docs** (builtin web tools + catalog scan): current primary docs for
+   any library/SDK/CLI question; never trust training data for API details.
 2. **research** (`mp:research` → builtin web research): high-trust
    primary-source investigation, findings captured as a Markdown file in the
    repo.

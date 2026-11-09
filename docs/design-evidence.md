@@ -18,13 +18,12 @@ BAK is the same router, split in two:
 
 ## Decisions
 
-1. **Compose, never own.** Upstream skills (mattpocock, vercel-labs,
-   chrome-devtools) are pinned, never vendored. BAK owns only the router and
-   the playbooks.
+1. **Compose, never own.** Upstream skills (mattpocock, pstack) are pinned,
+   never vendored. BAK owns only the router and the playbooks.
 2. **Two-level brand.** BAK = serious kit; bad-agent-kit = persona whose
    punchline encodes the rules ("never mutate on inspect, never publish
    without authority").
-3. **Catalog of record.** README table until ~40 entries; then
+3. **Catalog of record.** `docs/catalog.md` until ~40 entries; then
    `catalog/catalog.json` + generator. CI enforces lockstep with the manifest
    so the catalog can't drift.
 4. **Privacy-scrub gate.** CI fails on personal literals — an enforced rule,

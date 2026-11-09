@@ -18,7 +18,7 @@ done
 echo ">> Updating detected external providers (pinned refs only) ..."
 STATUS="$HOME/.config/bak/providers.json"
 if [ -f "$STATUS" ]; then
-  for id in mattpocock vercel-labs; do
+  for id in mattpocock; do
     if python3 -c "
 import json,sys
 d=json.load(open('$STATUS'))

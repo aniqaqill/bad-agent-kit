@@ -43,12 +43,6 @@ pstack | github:cursor/plugins | pstack/skills/principle-prove-it-works | plugin
 pstack | github:cursor/plugins | pstack/skills/principle-model-the-domain | plugin | plan | optional | 2026-11-09
 pstack | github:cursor/plugins | pstack/skills/principle-test-behavior-not-implementation | plugin | implement | optional | 2026-11-09
 
-# --- provider: vercel-labs — optional ---
-vercel-labs | github:vercel-labs/skills | skills/find-skills | skills.sh | discover | optional | 2026-11-09
-
-# --- provider: chrome-devtools — optional (needs MCP server too) ---
-chrome-devtools | github:ChromeDevTools/chrome-devtools-mcp | skills/chrome-devtools | skills.sh | browser | optional | 2026-11-09
-
 # --- builtin, owned by BAK — required ---
 local:bak | skills/bak/SKILL.md | builtin | route | required | 2026-11-09
 local:go-plan | skills/go-plan/SKILL.md | builtin | plan-go | required | 2026-11-09

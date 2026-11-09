@@ -27,22 +27,19 @@ never load-bearing.
 | Implement accepted Go spec | never routed | never routed | `$go-tdd` (fence) |
 | Review changes (non-Go) | `mp:code-review` | `pstack:interrogate` (adversarial) | builtin two-axis (review-pipeline.md) |
 | Review Go changes | never routed | `pstack:interrogate` optional pass | `$go-review` (fence) |
-| Babysit an MR/PR | — | `pstack:babysit` | `$babysit` (builtin, gh+git) |
+| Babysit an MR/PR | — | — | `$babysit` (builtin, gh+git) |
 
 ## Supporting routes
 
 | Intent | Primary route | Supporting route or constraint |
 |---|---|---|
 | Configure a repo for the mattpocock suite | `$setup-matt-pocock-skills` | Only when the suite is detected present |
-| Ask which Matt workflow fits | `$ask-matt` | Only when explicitly requested and suite present |
 | Stress-test a general plan | `mp:grilling` or `$grill-me` | builtin fallback: inline frontier interview |
 | Stress-test a plan while building domain docs | `$grill-with-docs` | May use `$domain-modeling` |
-| Discover new capabilities | `vercel-labs:find-skills` | builtin: web research + catalog scan |
 | Research primary sources | `mp:research` | builtin: web tools + `$research` |
 | Diagnose broken/failing/slow behavior | `mp:diagnosing-bugs` | builtin: diagnosis loop (playbooks/diagnosis.md) |
 | Prototype a design question | `mp:prototype` | builtin: throwaway probe |
 | Establish terminology / record decisions | `mp:domain-modeling` | builtin: GLOSSARY/ADR updates |
-| Browser automation | `chrome-devtools` + MCP server | two-step proof required (skill AND server) |
 
 ## Fallback rules
 
