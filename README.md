@@ -11,6 +11,7 @@
 [![pi.dev gallery](https://img.shields.io/badge/pi.dev-gallery-6f6bff)](https://pi.dev/packages)
 [![skills.sh](https://img.shields.io/badge/skills.sh-install-6f42c1)](https://skills.sh)
 [![CI](https://img.shields.io/github/actions/workflow/status/aniqaqill/bad-agent-kit/ci.yml?label=CI)](https://github.com/aniqaqill/bad-agent-kit/actions)
+[![Gates: local pre-push](https://img.shields.io/badge/gates-local_pre--push-green)](.githooks/pre-push)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
@@ -247,9 +248,13 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Privacy & security
 
-A CI privacy-scrub gate fails the build on personal literals (home paths,
-vault names, private endpoints). This repo ships only the portable core;
-personal overlays stay local. See
+Three gates run before every push via the local pre-push hook
+([`.githooks/pre-push`](.githooks/pre-push) — enable with
+`git config core.hooksPath .githooks`): privacy-scrub, catalog lockstep + Go
+fence, upstream path existence. The same gates also run in GitHub Actions when
+the account's Actions is enabled. A CI privacy-scrub gate fails the build on
+personal literals (home paths, vault names, private endpoints). This repo ships
+only the portable core; personal overlays stay local. See
 [docs/design-evidence.md](docs/design-evidence.md).
 
 ## Acknowledgments
