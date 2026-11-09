@@ -29,25 +29,27 @@ instructions owned by routed skills.
 7. Run the feedback loop and verify the actual completion criteria before
    reporting success.
 
-Do not invoke `bak` recursively. Do not chain one user-invoked Matt Pocock
-orchestrator into another silently. When such a workflow is the best top-level
-route, select it once and let it call only the model-invoked disciplines it
-permits.
+Do not invoke `bak` recursively. Do not chain one provider orchestrator into
+another silently (mattpocock's router, pstack's poteto-mode). When such a
+workflow is the best top-level route, select it once and let it call only the
+model-invoked disciplines it permits.
 
 ## Orient before engineering routes
 
 - Find the Git/project root, current branch, dirty state, relevant `AGENTS.md`,
   `CLAUDE.md`, `README.md`, `CONTEXT.md`, ADRs, and commands.
 - Preserve unrelated user changes.
-- Before using tracker-aware Matt Pocock workflows, check for
-  `docs/agents/issue-tracker.md`, `domain.md`, and, when `triage` is installed,
-  `triage-labels.md`. If missing or inconsistent, route to
-  `$setup-matt-pocock-skills` and honor its confirmation steps.
+- Run provider detection first: read `~/.config/bak/providers.json` (created by
+  `scripts/detect-providers.sh` in the bad-agent-kit repo; re-stat versions).
+  A provider is live only when pinned AND on-disk (two-step proof, see
+  [contracts.md](references/contracts.md)).
+- Evaluate the go.mod fence BEFORE any route: go.mod present ⇒ go-plan/go-tdd/
+  go-review only; never route mp:tdd or pstack:tdd for Go work.
+- Announce the lane before every phase: 'native phase active; accelerator X
+  present but unused' — name the chosen provider and the detected-but-unselected
+  ones. Never route to a provider whose suite is not detected present.
 - Prefer repo-specific terms, commands, and acceptance checks over workspace
   defaults.
-- In a Go module (go.mod present): note the module layout and go directive
-  version floor before entering any phase; Go triggers route to the `go-*`
-  family (see routing matrix).
 
 ## Use guides and sensors
 

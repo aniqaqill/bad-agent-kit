@@ -1,23 +1,24 @@
-# Playbook: feature work (the BAK default chain)
+# Playbook: feature work (plan → implement → review → mr)
 
-The chain used for real feature work. Each step is an installed skill; `bak`
-routes into the right entry point.
+Each step shows the provider route and the builtin fallback. A provider runs
+only when pinned AND detected; absence degrades with a one-line skip note.
 
-```mermaid
-flowchart LR
-  A[triage] --> B[to-spec] --> C[to-tickets] --> D[tdd] --> E[code-review] --> F[handoff]
-  G[wayfinder] -. large or uncertain .-> B
-  H[request-refactor-plan] -. refactor .-> C
-```
-
-1. **triage** — intake the issue/request; confirm labels, tracker state, and
-   confirmation steps before any Matt Pocock workflow.
-2. **to-spec** — synthesize the plan; produce the spec document.
-3. **to-tickets** — split the spec into executable tracer-bullet tickets.
-4. **tdd** — implement each ticket test-first (red → green → refactor).
-5. **code-review** — review the branch along standards + spec axes.
-6. **handoff** — close the loop: summary, remaining risks, learning captured.
+1. **plan (intake)** — `mp:triage` → `mp:to-spec` → `mp:to-tickets` (or
+   `pstack:poteto-mode`); builtin fallback: inline frontier interview +
+   spec synthesis. Exit: spec naming every shared datum, seam, and
+   acceptance condition.
+2. **implement** — `mp:tdd` / `pstack:tdd` at pre-agreed seams (non-Go);
+   builtin fallback: inline red-green-refactor. Exit: sensor chain clean +
+   e2e outcome test passing.
+3. **review** — review-pipeline.md: phase 0 deterministic sensors → phase 1
+   author pre-review → phase 2 two-axis (mp:code-review or builtin) → phase 3
+   optional adversarial (pstack:interrogate) → phase 4 human gate. Exit:
+   P0/P1 fixed or human-waived; findings bound to SHA.
+4. **mr / babysit** — `$babysit` (builtin — pstack ships no mr skill): declare
+   mode, work the merge frontier, conflicts → threads → CI, terminal states
+   per mr-loop.md. Exit: merged / closed / merge-ready / retries-exhausted /
+   human-needed — reported with evidence.
 
 **Sensors throughout**: prehook.sh before material changes, posthook.sh after,
-prepush.sh only immediately before a user-authorized push. Fast deterministic
-checks first, broader checks proportional to risk.
+prepush.sh only immediately before a user-authorized push. Re-read tracker
+state and re-run sensors before every merge claim.

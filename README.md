@@ -39,34 +39,48 @@ Two things, one repo:
    install command, and its position in the BAK workflow. CI keeps the catalog
    in lockstep with the pinned manifest.
 2. **Orchestrator** — the BAK router skill (`bak`) plus documented playbooks
-   encoding how the skills chain together in real work: triage → spec →
-   tickets → TDD → review → handoff, and a Go-first lane (plan → tdd →
-   review) with sensor gates at every phase exit.
+   encoding the full SDLC: plan → implement → review → mr (babysitting to
+   merge), with a Go-first lane (plan → tdd → review) with sensor gates at
+   every phase exit, and a five-phase review pipeline with a builtin MR
+   babysitter.
 
 BAK never forks upstream. Skills stay owned by their authors; BAK pins them,
 composes them, and documents the chains.
 
 ## Install
 
+**BAK works with zero external suites** — the builtin lane (bak, go-plan,
+go-tdd, go-review, babysit) is self-contained. Providers below are optional.
+
 ```bash
-# pi
+# pi — everything builtin
 pi install npm:bad-agent-kit
 
-# Claude Code / Codex / Cursor via skills.sh
+# Claude Code / Codex / Cursor via skills.sh — builtin skills
 npx skills@latest add aniqaqill/bad-agent-kit -g --skill bak --agent cursor -y
 npx skills@latest add aniqaqill/bad-agent-kit -g --skill go-plan --agent cursor -y
 npx skills@latest add aniqaqill/bad-agent-kit -g --skill go-tdd --agent cursor -y
 npx skills@latest add aniqaqill/bad-agent-kit -g --skill go-review --agent cursor -y
+npx skills@latest add aniqaqill/bad-agent-kit -g --skill babysit --agent cursor -y
 ```
 
-> ⚠️ **Pick ONE channel per agent.** Installing through two channels on the
-> same agent duplicates every skill and drifts hashes silently.
+Optional providers (pin them in `manifest/providers.toml`; detection proves
+presence at session start):
 
-Bootstrap the full BAK stack for one agent (router + mattpocock suite +
-discovery + browser):
+| Provider | Channel | Install |
+|---|---|---|
+| mattpocock/skills | skills.sh / plugin | `npx skills@latest add mattpocock/skills -g --skill '*' --agent cursor -y --full-depth` |
+| pstack | **plugin only** | `/add-plugin pstack` (Cursor) or `/plugin install pstack@cursor-plugins` |
+| vercel-labs find-skills | skills.sh | `npx skills@latest add vercel-labs/skills -g --skill find-skills --agent cursor -y` |
+| chrome-devtools | skills.sh + MCP | `npx skills@latest add chromedevtools/chrome-devtools-mcp -g --agent cursor -y` |
+
+> ⚠️ **Pick ONE channel per agent per provider.** Two channels on one agent
+> duplicate skills and drift hashes silently.
+
+One-command bootstrap (detection-first, providers opt-in):
 
 ```bash
-bash scripts/bootstrap.sh cursor   # cursor | claude | codex
+bash scripts/bootstrap.sh cursor --providers mattpocock,vercel-labs
 ```
 
 ## The catalog
@@ -74,59 +88,84 @@ bash scripts/bootstrap.sh cursor   # cursor | claude | codex
 | Skill | Source | Install | Workflow position |
 |---|---|---|---|
 | `bak` | this repo | `pi install npm:bad-agent-kit` | router — start of every task |
-| `go-plan` | this repo | `pi install npm:bad-agent-kit` | Go plan phase — grill then spec |
-| `go-tdd` | this repo | `pi install npm:bad-agent-kit` | Go implement — sensor gates + e2e tests |
-| `go-review` | this repo | `pi install npm:bad-agent-kit` | Go review — standards + spec lenses |
-| `find-skills` | [vercel-labs/skills](https://github.com/vercel-labs/skills) | `npx skills@latest add vercel-labs/skills -g --skill find-skills --agent cursor -y` | discover new capabilities |
-| `tdd` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill tdd --agent cursor -y` | build/test-first |
-| `triage` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill triage --agent cursor -y` | issue intake |
-| `to-spec` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill to-spec --agent cursor -y` | synthesize plan |
-| `to-tickets` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill to-tickets --agent cursor -y` | split into tickets |
-| `wayfinder` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill wayfinder --agent cursor -y` | large/uncertain efforts |
-| `request-refactor-plan` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill request-refactor-plan --agent cursor -y` | planned refactors |
-| `code-review` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill code-review --agent cursor -y` | review before merge |
-| `setup-matt-pocock-skills` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill setup-matt-pocock-skills --agent cursor -y` | tracker setup |
-| `grilling` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill grilling --agent cursor -y` | stress-test ideas |
-| `handoff` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill handoff --agent cursor -y` | hand over work |
-| `research` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill research --agent cursor -y` | primary-source research |
-| `codebase-design` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill codebase-design --agent cursor -y` | deep-module design |
-| `diagnosing-bugs` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill diagnosing-bugs --agent cursor -y` | diagnosis loop |
-| `domain-modeling` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill domain-modeling --agent cursor -y` | GLOSSARY/ADRs |
-| `improve-codebase-architecture` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill improve-codebase-architecture --agent cursor -y` | architecture passes |
-| `migrate-to-shoehorn` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill migrate-to-shoehorn --agent cursor -y` | test type safety |
-| `prototype` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill prototype --agent cursor -y` | throwaway design probes |
-| `resolving-merge-conflicts` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill resolving-merge-conflicts --agent cursor -y` | merge/rebase conflicts |
-| `scaffold-exercises` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill scaffold-exercises --agent cursor -y` | course scaffolding |
-| `grill-with-docs` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill grill-with-docs --agent cursor -y` | grill with docs |
-| `implement` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill implement --agent cursor -y` | direct implementation |
-| `grill-me` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill grill-me --agent cursor -y` | get grilled |
-| `qa` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill qa --agent cursor -y` | issue filing |
-| `teach` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill teach --agent cursor -y` | teach a topic |
+| `go-plan` | this repo | `pi install npm:bad-agent-kit` | Go plan — frontier interview + spec |
+| `go-tdd` | this repo | `pi install npm:bad-agent-kit` | Go implement — sensor gates + e2e |
+| `go-review` | this repo | `pi install npm:bad-agent-kit` | Go review — two-axis + lenses |
+| `babysit` | this repo | `pi install npm:bad-agent-kit` | MR babysitter — builtin |
+| `triage` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill triage --agent cursor -y` | plan intake |
+| `to-spec` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill to-spec --agent cursor -y` | plan spec |
+| `to-tickets` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill to-tickets --agent cursor -y` | plan tickets |
+| `tdd` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill tdd --agent cursor -y` | implement (non-Go) |
+| `code-review` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill code-review --agent cursor -y` | review |
+| `handoff` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill handoff --agent cursor -y` | mr handoff |
+| `grilling` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill grilling --agent cursor -y` | plan stress-test |
+| `wayfinder` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill wayfinder --agent cursor -y` | large/uncertain |
+| `setup-matt-pocock-skills` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill setup-matt-pocock-skills --agent cursor -y` | suite setup |
+| `research` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill research --agent cursor -y` | docs research |
+| `codebase-design` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill codebase-design --agent cursor -y` | plan design |
+| `diagnosing-bugs` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill diagnosing-bugs --agent cursor -y` | diagnosis |
+| `domain-modeling` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill domain-modeling --agent cursor -y` | docs GLOSSARY/ADRs |
+| `improve-codebase-architecture` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill improve-codebase-architecture --agent cursor -y` | plan architecture |
+| `prototype` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill prototype --agent cursor -y` | plan probes |
+| `grill-with-docs` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill grill-with-docs --agent cursor -y` | plan grill |
+| `implement` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill implement --agent cursor -y` | implement |
+| `implement-spec` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill implement-spec --agent cursor -y` | implement spec |
+| `migrate-to-shoehorn` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill migrate-to-shoehorn --agent cursor -y` | implement tests |
+| `scaffold-exercises` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill scaffold-exercises --agent cursor -y` | docs scaffolding |
+| `grill-me` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill grill-me --agent cursor -y` | plan grill |
+| `teach` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill teach --agent cursor -y` | docs teach |
+| `poteto-mode` | [cursor/plugins — pstack](https://github.com/cursor/plugins/tree/main/pstack) | `/add-plugin pstack` (plugin channel only) | plan (pstack) |
+| `tdd` | [cursor/plugins — pstack](https://github.com/cursor/plugins/tree/main/pstack) | `/add-plugin pstack` (plugin channel only) | implement (non-Go) |
+| `interrogate` | [cursor/plugins — pstack](https://github.com/cursor/plugins/tree/main/pstack) | `/add-plugin pstack` (plugin channel only) | review adversarial |
+| `technical-writing` | [cursor/plugins — pstack](https://github.com/cursor/plugins/tree/main/pstack) | `/add-plugin pstack` (plugin channel only) | docs writing |
+| `unslop` | [cursor/plugins — pstack](https://github.com/cursor/plugins/tree/main/pstack) | `/add-plugin pstack` (plugin channel only) | docs writing |
+| `recall` | [cursor/plugins — pstack](https://github.com/cursor/plugins/tree/main/pstack) | `/add-plugin pstack` (plugin channel only) | docs freshness |
+| `ketchup` | [cursor/plugins — pstack](https://github.com/cursor/plugins/tree/main/pstack) | `/add-plugin pstack` (plugin channel only) | docs freshness |
+| `setup-pstack` | [cursor/plugins — pstack](https://github.com/cursor/plugins/tree/main/pstack) | `/add-plugin pstack` (plugin channel only) | suite setup |
+| `principle-separate-before-serializing-shared-state` | [cursor/plugins — pstack](https://github.com/cursor/plugins/tree/main/pstack) | `/add-plugin pstack` (plugin channel only) | plan principle |
+| `principle-prove-it-works` | [cursor/plugins — pstack](https://github.com/cursor/plugins/tree/main/pstack) | `/add-plugin pstack` (plugin channel only) | review principle |
+| `principle-model-the-domain` | [cursor/plugins — pstack](https://github.com/cursor/plugins/tree/main/pstack) | `/add-plugin pstack` (plugin channel only) | plan principle |
+| `principle-test-behavior-not-implementation` | [cursor/plugins — pstack](https://github.com/cursor/plugins/tree/main/pstack) | `/add-plugin pstack` (plugin channel only) | implement principle |
+| `find-skills` | [vercel-labs/skills](https://github.com/vercel-labs/skills) | `npx skills@latest add vercel-labs/skills -g --skill find-skills --agent cursor -y` | discover |
 | `chrome-devtools` | [chromedevtools/chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp) | `npx skills@latest add chromedevtools/chrome-devtools-mcp -g --agent cursor -y` | browser automation |
 
 Full pinned manifest: [`manifest/upstream-sources.txt`](manifest/upstream-sources.txt).
 Playbooks: [`docs/playbooks/`](docs/playbooks/).
 
-## The BAK workflow
+## The BAK workflow — plan → implement → review → mr
+
+Builtin phases are solid nodes; optional providers are dashed and only run
+when pinned AND detected (two-step proof). Absent providers degrade to the
+builtin lane with a one-line skip note — never a quality cliff.
 
 ```mermaid
 flowchart LR
-  T[triage] --> S[to-spec] --> K[to-tickets] --> D[tdd] --> R[code-review] --> H[handoff]
-  W[wayfinder] -.->|large/uncertain| S
-  P[request-refactor-plan] -.->|refactor| K
-  bak([bak router]) -. routes .-> T
-  bak -. routes .-> D
-  bak -. routes .-> W
-  subgraph GO[Go lane]
-    GP[go-plan] --> GT[go-tdd] --> GR[go-review]
+  subgraph BUILTIN["builtin — required, ships in package"]
+    BAKb[bak router]
+    PLAN[plan] --> IMPL[implement] --> REV[review] --> MR[mr / babysit]
+    GO[go-plan → go-tdd → go-review]
   end
-  bak -. "go.mod / race|goroutine|channel|mutex" .-> GP
+  MP["mattpocock<br/>mp:triage/to-spec/tdd/code-review"] -.->|optional provider| PLAN
+  MP -.-> IMPL
+  MP -.-> REV
+  PS["pstack<br/>poteto-mode/interrogate/babysit"] -.->|optional provider| PLAN
+  PS -.-> REV
+  PS -.-> MR
+  VL["vercel find-skills"] -.->|discover| PLAN
+  BAKb -->|go.mod fence| GO
+  BAKb --> PLAN
+  GO --> REV
 ```
 
-## Go-first skills
+Go work is hard-fenced: `go.mod` ⇒ go-plan/go-tdd/go-review only — the Go
+lane is fully self-contained (inline frontier interview, red-green-refactor,
+two-axis review) and never delegates to a provider.
 
-Go work gets first-principles treatment: mattpocock's conversation-first
-phases + pstack's evidence discipline + Go's real sensors.
+## Go-first skills (self-contained — no external suite required)
+
+Go work gets first-principles treatment: the builtin plan/implement/review
+phases inlined (frontier interview → red-green-refactor → two-axis review),
+pstack's evidence discipline, and Go's real sensors.
 
 - **`go-plan`** — grills the design with the Go frontier taxonomy (goroutine
   ownership, channel-vs-mutex, leak prevention, error strategy, test seams)
@@ -141,8 +180,9 @@ phases + pstack's evidence discipline + Go's real sensors.
 
 All rules live in one canonical contract —
 [`skills/go-tdd/references/GO_RULES.md`](skills/go-tdd/references/GO_RULES.md):
-24 sensor-tagged rules in HARD/REVIEW/EVIDENCE tiers. A finding survives only
-when a run proves it.
+48 sensor-tagged rules in HARD/REVIEW/EVIDENCE tiers, including the goroutine
+lifecycle rules (Cheney), TDD contract, API-design rules (Bloch), and optional
+non-enforcing logging guidance. A finding survives only when a run proves it.
 
 ```mermaid
 flowchart LR
@@ -155,47 +195,49 @@ flowchart LR
   GR -->|two-axis + lenses| M[merge]
 ```
 
-## Architecture
+## Architecture — providers, adapters, contracts
 
 ```mermaid
 flowchart TD
-  subgraph UP["Upstream — source of truth"]
-    MP["mattpocock/skills 36+"]
-    VL["vercel-labs/skills"]
-    CD["chrome-devtools-mcp"]
+  subgraph BUILTIN["builtin — required"]
+    BAK["bak router<br/>(pure dispatch + detection prelude)"]
+    GOL["go-plan / go-tdd / go-review<br/>go.mod ⇒ always"]
+    BS["babysit (gh+git)"]
   end
-  subgraph REPO["bad-agent-kit — compose, never own"]
-    BAK["bak router<br/>(thin, routes only)"]
-    GO["go-plan / go-tdd / go-review<br/>(Go-first lane)"]
-    CAT["catalog table<br/>lockstep with manifest"]
-    PB["playbooks"]
-    MANIFEST["manifest/upstream-sources.txt<br/>pinned, never vendored"]
+  subgraph OPT["optional providers — pinned + detected"]
+    MP["mattpocock/skills"]
+    PS["pstack (plugin channel)"]
+    VL["vercel-labs"]
+    CD["chrome-devtools"]
   end
-  UP -->|pinned manifest| MANIFEST
-  MANIFEST --> CAT
-  BAK -->|routes into| UP
-  BAK --> GO
-  GO -->|reads| RULES["GO_RULES.md"]
-  CAT --> PB
-  subgraph CH["Distribution"]
-    NPM["npm → pi.dev gallery"]
-    NPX["npx skills add"]
-    CC["claude/codex plugin marketplace"]
-  end
-  REPO --> NPM
-  REPO --> NPX
-  REPO --> CC
+  TOML["manifest/providers.toml<br/>one-line pins"] --> DETECT["detect-providers.sh<br/>two-step proof"]
+  DETECT -->|present| OPT
+  DETECT -->|absent| DEGRADE["degradation lane:<br/>builtin fallback + skip note"]
+  BAK --> DETECT
+  OPT -. adapters/*.md map suites to contracts .-> BAK
+  BAK --> GOL
+  BAK --> BS
 ```
+
+Phase contracts (plan / implement / review / mr) live in
+[`skills/bak/references/contracts.md`](skills/bak/references/contracts.md).
+Adapters are data-only mapping files:
+[`adapters/mattpocock.md`](adapters/mattpocock.md) ·
+[`adapters/pstack.md`](adapters/pstack.md). The router never hard-depends on
+any provider.
 
 ## Repo layout
 
 ```text
-skills/                BAK-owned skills (bak, go-plan, go-tdd, go-review)
-manifest/              pinned upstream sources — never vendored
+skills/                BAK-owned skills (bak, go-plan, go-tdd, go-review, babysit)
+adapters/              data-only provider→contract mappings (mattpocock, pstack)
+manifest/              provider pins (providers.toml) + grouped catalog
+scripts/               bootstrap.sh / update.sh / detect-providers.sh /
+                       scrub.sh / validate-catalog.js
 docs/playbooks/        how the skills chain in real work
 docs/design-evidence.md  decision provenance ($HOME-scrubbed)
-scripts/               bootstrap.sh / update.sh / scrub.sh / validate-catalog.js
-.github/               CI: privacy-scrub gate + catalog lockstep + link check
+.github/               CI: privacy-scrub + catalog lockstep + link check +
+                       upstream path-existence
 ```
 
 ## Contributing
@@ -215,7 +257,8 @@ personal overlays stay local. See
 - [Matt Pocock's skills](https://github.com/mattpocock/skills) — the workflow
   stack BAK composes
 - [cursor/plugins — pstack](https://github.com/cursor/plugins/tree/main/pstack) —
-  the evidence discipline ("a finding survives only when a run proves it")
+  first-class optional provider (plan/adversarial-review/mr); the evidence
+  discipline ("a finding survives only when a run proves it")
 - [vercel-labs/skills](https://github.com/vercel-labs/skills) — find-skills
 - [ChromeDevTools/chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp) —
   browser automation

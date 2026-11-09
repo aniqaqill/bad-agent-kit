@@ -1,6 +1,6 @@
 {
   "name": "bad-agent-kit",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "BAK \u2014 bad-agent-kit: a curated skills marketplace + workflow orchestrator. The router that keeps you from being one. Compose, never own.",
   "license": "MIT",
   "keywords": [
@@ -8,10 +8,16 @@
     "pi",
     "agent-skills",
     "skills",
+    "marketplace",
     "claude-code",
     "codex",
-    "workflow-orchestrator",
-    "mattpocock"
+    "orchestrator",
+    "providers",
+    "skill-contracts",
+    "pstack",
+    "golang",
+    "tdd",
+    "code-review"
   ],
   "scripts": {
     "prepublishOnly": "bash scripts/scrub.sh && node scripts/validate-catalog.js",
@@ -29,7 +35,8 @@
       "./skills/bak",
       "./skills/go-plan",
       "./skills/go-tdd",
-      "./skills/go-review"
+      "./skills/go-review",
+      "./skills/babysit"
     ],
     "changelogPath": "CHANGELOG.md"
   },

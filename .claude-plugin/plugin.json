@@ -1,11 +1,11 @@
 {
   "name": "bad-agent-kit",
   "description": "BAK — Bad-Agent Kit: curated skills marketplace + workflow orchestrator. Compose, never own.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": {
     "name": "aniqaqill",
     "url": "https://github.com/aniqaqill"
   },
   "repository": "https://github.com/aniqaqill/bad-agent-kit",
-  "keywords": ["skills", "marketplace", "orchestrator", "mattpocock", "claude-code", "codex", "pi"]
+  "keywords": ["skills", "marketplace", "orchestrator", "providers", "skill-contracts", "pstack", "golang", "claude-code", "codex", "pi"]
 }

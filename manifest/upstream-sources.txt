@@ -1,37 +1,57 @@
-# Format: <source> <path>   — install channel decided per agent (see README).
+# BAK skill manifest — provider-grouped. Format per row:
+#   <provider-id> | <source> | <skill-path> | <channel> | <roles> | <required|optional> | <checked>
+#   local rows:  local:<name> | <path> | builtin | <roles> | required | <checked>
+# Providers are OPTIONAL unless marked required. Absence of an optional
+# provider never blocks the workflow (degradation lane). See manifest/providers.toml
+# for provider-level pins (repo, ref, channel, roles).
 
-# Pinned upstream sources — never vendored.
-# mattpocock engineering + productivity stack
-github:mattpocock/skills                     skills/engineering/tdd
-github:mattpocock/skills                     skills/engineering/triage
-github:mattpocock/skills                     skills/engineering/to-spec
-github:mattpocock/skills                     skills/engineering/to-tickets
-github:mattpocock/skills                     skills/engineering/code-review
-github:mattpocock/skills                     skills/engineering/wayfinder
-github:mattpocock/skills                     skills/engineering/request-refactor-plan
-github:mattpocock/skills                     skills/engineering/setup-matt-pocock-skills
-github:mattpocock/skills                     skills/engineering/research
-github:mattpocock/skills                     skills/engineering/codebase-design
-github:mattpocock/skills                     skills/engineering/diagnosing-bugs
-github:mattpocock/skills                     skills/engineering/domain-modeling
-github:mattpocock/skills                     skills/engineering/grilling
-github:mattpocock/skills                     skills/engineering/improve-codebase-architecture
-github:mattpocock/skills                     skills/engineering/migrate-to-shoehorn
-github:mattpocock/skills                     skills/engineering/prototype
-github:mattpocock/skills                     skills/engineering/resolving-merge-conflicts
-github:mattpocock/skills                     skills/engineering/scaffold-exercises
-github:mattpocock/skills                     skills/engineering/grill-with-docs
-github:mattpocock/skills                     skills/engineering/implement
-github:mattpocock/skills                     skills/productivity/handoff
-github:mattpocock/skills                     skills/productivity/grill-me
-github:mattpocock/skills                     skills/productivity/qa
-github:mattpocock/skills                     skills/productivity/teach
-# discovery
-github:vercel-labs/skills                    skills/find-skills
-# browser automation
-github:ChromeDevTools/chrome-devtools-mcp    skills/chrome-devtools
-# local, owned by BAK (portable core)
-local:skills/bak                            skills/bak/SKILL.md
-local:skills/go-plan                         skills/go-plan/SKILL.md
-local:skills/go-tdd                          skills/go-tdd/SKILL.md
-local:skills/go-review                       skills/go-review/SKILL.md
+# --- provider: mattpocock — optional ---
+mattpocock | github:mattpocock/skills | skills/engineering/triage | skills.sh | intake | optional | 2026-11-09
+mattpocock | github:mattpocock/skills | skills/engineering/to-spec | skills.sh | spec | optional | 2026-11-09
+mattpocock | github:mattpocock/skills | skills/engineering/to-tickets | skills.sh | tickets | optional | 2026-11-09
+mattpocock | github:mattpocock/skills | skills/engineering/tdd | skills.sh | implement | optional | 2026-11-09
+mattpocock | github:mattpocock/skills | skills/engineering/code-review | skills.sh | review | optional | 2026-11-09
+mattpocock | github:mattpocock/skills | skills/productivity/handoff | skills.sh | handoff | optional | 2026-11-09
+mattpocock | github:mattpocock/skills | skills/productivity/grilling | skills.sh | plan | optional | 2026-11-09
+mattpocock | github:mattpocock/skills | skills/engineering/wayfinder | skills.sh | plan | optional | 2026-11-09
+mattpocock | github:mattpocock/skills | skills/engineering/setup-matt-pocock-skills | skills.sh | setup | optional | 2026-11-09
+mattpocock | github:mattpocock/skills | skills/engineering/research | skills.sh | docs | optional | 2026-11-09
+mattpocock | github:mattpocock/skills | skills/engineering/codebase-design | skills.sh | plan | optional | 2026-11-09
+mattpocock | github:mattpocock/skills | skills/engineering/diagnosing-bugs | skills.sh | diagnose | optional | 2026-11-09
+mattpocock | github:mattpocock/skills | skills/engineering/domain-modeling | skills.sh | docs | optional | 2026-11-09
+mattpocock | github:mattpocock/skills | skills/engineering/improve-codebase-architecture | skills.sh | plan | optional | 2026-11-09
+mattpocock | github:mattpocock/skills | skills/engineering/prototype | skills.sh | plan | optional | 2026-11-09
+mattpocock | github:mattpocock/skills | skills/engineering/grill-with-docs | skills.sh | plan | optional | 2026-11-09
+mattpocock | github:mattpocock/skills | skills/engineering/implement | skills.sh | implement | optional | 2026-11-09
+mattpocock | github:mattpocock/skills | skills/engineering/implement-spec | skills.sh | implement | optional | 2026-11-09
+mattpocock | github:mattpocock/skills | skills/misc/migrate-to-shoehorn | skills.sh | implement | optional | 2026-11-09
+mattpocock | github:mattpocock/skills | skills/misc/scaffold-exercises | skills.sh | docs | optional | 2026-11-09
+mattpocock | github:mattpocock/skills | skills/productivity/grill-me | skills.sh | plan | optional | 2026-11-09
+mattpocock | github:mattpocock/skills | skills/productivity/teach | skills.sh | docs | optional | 2026-11-09
+
+# --- provider: pstack — optional, plugin-channel only ---
+pstack | github:cursor/plugins | pstack/skills/poteto-mode | plugin | plan | optional | 2026-11-09
+pstack | github:cursor/plugins | pstack/skills/tdd | plugin | implement | optional | 2026-11-09
+pstack | github:cursor/plugins | pstack/skills/interrogate | plugin | review | optional | 2026-11-09
+pstack | github:cursor/plugins | pstack/skills/technical-writing | plugin | docs | optional | 2026-11-09
+pstack | github:cursor/plugins | pstack/skills/unslop | plugin | docs | optional | 2026-11-09
+pstack | github:cursor/plugins | pstack/skills/recall | plugin | docs | optional | 2026-11-09
+pstack | github:cursor/plugins | pstack/skills/ketchup | plugin | docs | optional | 2026-11-09
+pstack | github:cursor/plugins | pstack/skills/setup-pstack | plugin | setup | optional | 2026-11-09
+pstack | github:cursor/plugins | pstack/skills/principle-separate-before-serializing-shared-state | plugin | plan | optional | 2026-11-09
+pstack | github:cursor/plugins | pstack/skills/principle-prove-it-works | plugin | review | optional | 2026-11-09
+pstack | github:cursor/plugins | pstack/skills/principle-model-the-domain | plugin | plan | optional | 2026-11-09
+pstack | github:cursor/plugins | pstack/skills/principle-test-behavior-not-implementation | plugin | implement | optional | 2026-11-09
+
+# --- provider: vercel-labs — optional ---
+vercel-labs | github:vercel-labs/skills | skills/find-skills | skills.sh | discover | optional | 2026-11-09
+
+# --- provider: chrome-devtools — optional (needs MCP server too) ---
+chrome-devtools | github:ChromeDevTools/chrome-devtools-mcp | skills/chrome-devtools | skills.sh | browser | optional | 2026-11-09
+
+# --- builtin, owned by BAK — required ---
+local:bak | skills/bak/SKILL.md | builtin | route | required | 2026-11-09
+local:go-plan | skills/go-plan/SKILL.md | builtin | plan-go | required | 2026-11-09
+local:go-tdd | skills/go-tdd/SKILL.md | builtin | implement-go | required | 2026-11-09
+local:go-review | skills/go-review/SKILL.md | builtin | review-go | required | 2026-11-09
+local:babysit | skills/babysit/SKILL.md | builtin | mr | required | 2026-11-09

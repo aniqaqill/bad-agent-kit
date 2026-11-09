@@ -1,0 +1,5 @@
+interface:
+  display_name: "babysit"
+  short_description: "Babysit an MR/PR through conflicts, review threads, and CI to a terminal state."
+  default_prompt: "Use $babysit to drive this PR to merge, honoring publish authority."
+  allow_implicit_invocation: false

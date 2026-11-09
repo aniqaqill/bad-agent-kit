@@ -1,0 +1,11 @@
+# BAK providers — one line per provider. Edit the pin, never the router.
+#   id             repo                              ref       channel    optional  roles                                    checked
+# Roles: intake,spec,tickets,implement,review,mr,handoff,plan,docs,discover,browser,diagnose,setup
+# The generated per-machine runtime state lives at ~/.config/bak/providers.json
+# (detected-at + version + status) — advisory only, never committed, never truth.
+
+mattpocock      github:mattpocock/skills              4ae2317   skills.sh  true      intake,spec,tickets,implement,review,handoff,plan,docs,diagnose   2026-11-09
+pstack          github:cursor/plugins                 0.15.36   plugin     true      plan,implement,review,mr,docs                                    2026-11-09
+vercel-labs     github:vercel-labs/skills             HEAD      skills.sh  true      discover                                                         2026-11-09
+chrome-devtools github:ChromeDevTools/chrome-devtools-mcp  HEAD  plugin    true      browser                                                          2026-11-09
+builtin         local:skills                          —         builtin    false     route,plan-go,implement-go,review-go,mr                            —
