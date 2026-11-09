@@ -1,6 +1,6 @@
 ---
 name: bak
-description: formerly chief — Route and orchestrate every workspace task through the smallest complete set of installed skills, plugins, repository guidance, tools, feedback sensors, and durable learning surfaces. Use at the start of every task under your workspace, when the right workflow is unclear, when work crosses repositories or capabilities, or when deciding whether repeated workspace behavior should become an AGENTS.md rule, skill, hook, MCP app, or plugin.
+description: Route and orchestrate every workspace task through the smallest complete set of installed skills, plugins, repository guidance, tools, feedback sensors, and durable learning surfaces. Use at the start of every task under your workspace, when the right workflow is unclear, when work crosses repositories or capabilities, or when deciding whether repeated workspace behavior should become an AGENTS.md rule, skill, hook, MCP app, or plugin.
 ---
 
 # BAK — bad-agent-kit

@@ -2,7 +2,7 @@
 
 - **BAK** — Bad-Agent Kit. The acronym is the joke: the router + marketplace + orchestrator that keeps you from shipping one.
 - **bad-agent-kit** — the persona. The joke IS the rule: don't ship the bad agent kit.
-- **bak** — the router skill itself (`skills/bak/SKILL.md`). Formerly `chief`.
+- **bak** — the router skill itself (`skills/bak/SKILL.md`).
 - **Catalog of record** — the single source of truth for what's listed; README table today, `catalog/catalog.json` + generator past ~40 entries. Never hand-edit both.
 - **Compose, never own** — BAK pins and documents upstream skills; it does not fork or vendor them.
 - **Playbook** — a documented chain of skills for one class of real work (e.g. triage → to-spec → to-tickets → tdd → code-review → handoff).

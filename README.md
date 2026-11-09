@@ -77,7 +77,6 @@ bash scripts/bootstrap.sh cursor   # cursor | claude | codex
 | `go-plan` | this repo | `pi install npm:bad-agent-kit` | Go plan phase — grill then spec |
 | `go-tdd` | this repo | `pi install npm:bad-agent-kit` | Go implement — sensor gates + e2e tests |
 | `go-review` | this repo | `pi install npm:bad-agent-kit` | Go review — standards + spec lenses |
-| `chief` (legacy) | this repo | — | superseded by `bak`; kept for backlink resolution |
 | `find-skills` | [vercel-labs/skills](https://github.com/vercel-labs/skills) | `npx skills@latest add vercel-labs/skills -g --skill find-skills --agent cursor -y` | discover new capabilities |
 | `tdd` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill tdd --agent cursor -y` | build/test-first |
 | `triage` | [mattpocock/skills](https://github.com/mattpocock/skills) | `npx skills@latest add mattpocock/skills -g --skill triage --agent cursor -y` | issue intake |

@@ -1,7 +1,7 @@
 {
   "name": "bad-agent-kit",
-  "version": "0.1.1",
-  "description": "BAK — bad-agent-kit: a curated skills marketplace + workflow orchestrator. The router that keeps you from being one. Compose, never own.",
+  "version": "0.1.2",
+  "description": "BAK \u2014 bad-agent-kit: a curated skills marketplace + workflow orchestrator. The router that keeps you from being one. Compose, never own.",
   "license": "MIT",
   "keywords": [
     "pi-package",
@@ -25,7 +25,12 @@
     "LICENSE"
   ],
   "pi": {
-    "skills": ["./skills/bak", "./skills/go-plan", "./skills/go-tdd", "./skills/go-review"],
+    "skills": [
+      "./skills/bak",
+      "./skills/go-plan",
+      "./skills/go-tdd",
+      "./skills/go-review"
+    ],
     "changelogPath": "CHANGELOG.md"
   },
   "peerDependencies": {

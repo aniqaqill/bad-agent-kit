@@ -3,6 +3,15 @@
 All notable changes to bad-agent-kit are documented here, in Pi changelog
 format (version headings match `package.json`).
 
+## [0.1.2] - 2026-11-09
+
+### Changed
+
+- Stale-record sweep: routing matrix retitled BAK, legacy chief references
+  removed from README catalog, GLOSSARY, SKILL.md descriptions
+- Orchestrator: `bak-sync` / `bak-update` loader commands documented (repo is
+  the source of truth; local copies re-localize on sync)
+
 ## [0.1.1] - 2026-11-09
 
 ### Changed
